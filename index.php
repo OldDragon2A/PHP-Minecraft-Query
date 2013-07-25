@@ -1,20 +1,17 @@
 <?php
-  // Display everything in browser, because some people can't look in logs for errors
-  Error_Reporting( E_ALL | E_STRICT );
-  Ini_Set( 'display_errors', true );
-  
-  require_once __DIR__ . '/lib/MinecraftQuery.php';
-  
+  Error_Reporting(E_ALL | E_STRICT);
+  Ini_Set('display_errors', true);
+  require_once 'lib/MinecraftQuery.php';
   $Timer = MicroTime( true );
   $Query = new MinecraftQuery( );
-  
   try { $Query->Connect('128.30.54.66'); } catch(MinecraftQueryException $e) { $Error = $e->getMessage( ); }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Server Status</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 <?php if( isset( $Error ) ): ?>
