@@ -4,7 +4,7 @@
   require_once 'lib/MinecraftQuery.php';
   $Timer = MicroTime( true );
   $Query = new MinecraftQuery( );
-  try { $Query->Connect('128.30.54.66'); } catch(MinecraftQueryException $e) { $Error = $e->getMessage( ); }
+  try { $Query->Connect('<server>', '<port>'); } catch(MinecraftQueryException $e) { $Error = $e->getMessage(); }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,14 +53,14 @@
       </thead>
       <tbody>
 <?php if( ( $Players = $Query->GetPlayers( ) ) !== false ): ?>
-<?php foreach( $Players as $Player ): ?>
-        <tr>
+<?php foreach($Players as $key => $Player): ?>
+        <tr<?php if ($key % 2 == 0) { echo ' class="alt"'; } ?>>
           <td><?php echo htmlspecialchars( $Player ); ?></td>
         </tr>
 <?php endforeach; ?>
 <?php else: ?>
         <tr>
-          <td>No players in da house!</td>
+          <td>None</td>
         </tr>
 <?php endif; ?>
       </tbody>

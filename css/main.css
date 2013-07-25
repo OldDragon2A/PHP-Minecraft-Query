@@ -93,6 +93,21 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+table {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #999;
+}
+tr {
+  background-color: #444;
+}
+tr.alt {
+  background-color: #222;
+}
+th, td {
+  color: #fff;
+}
 
 /* ==========================================================================
    Helper classes
