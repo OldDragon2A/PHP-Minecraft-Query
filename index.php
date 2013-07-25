@@ -2,10 +2,11 @@
   Error_Reporting(E_ALL | E_STRICT);
   Ini_Set('display_errors', true);
   require_once 'lib/MinecraftQuery.php';
+  require_once 'lib/functions.php';
   $Timer = MicroTime( true );
   $Query = new MinecraftQuery( );
-  try { $Query->Connect('<server>', '<port>'); } catch(MinecraftQueryException $e) { $Error = $e->getMessage(); }
-  $Skip = Array("HostIp", "HostPort");
+  try { $Query->Connect('<server>', <port>); } catch(MinecraftQueryException $e) { $Error = $e->getMessage(); }
+  $Skip = Array("HostIp", "HostPort", "Plugins", "RawPlugins", "Software");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,48 +17,45 @@
 </head>
 <body>
 <?php if( isset( $Error ) ): ?>
-    <div id="error">
-      <b>Exception:</b>
-      <?php echo htmlspecialchars( $Error ); ?>
-    </div>
+  <div id="error">
+    <b>Exception:</b>
+    <?php echo htmlspecialchars( $Error ); ?>
+  </div>
 <?php else: ?>
     <table>
       <thead>
         <tr>
-          <th colspan="2">Server info</th>
+          <th colspan="2">Server Info</th>
         </tr>
       </thead>
       <tbody>
 <?php if( ( $Info = $Query->GetInfo( ) ) !== false ): ?>
+<?php $index = 0; ?>
 <?php foreach( $Info as $InfoKey => $InfoValue ): ?>
-<?php if (in_array($InfoKey, $Skip)) { continue; } ?>
-        <tr>
-          <td><?php echo htmlspecialchars( $InfoKey ); ?></td>
+<?php if (in_array($InfoKey, $Skip)) { continue; } $index++; ?>
+        <tr<?php if ($index % 2 == 1) { echo ' class="alt"'; } ?>>
+          <th><?php echo htmlspecialchars($InfoKey); ?></th>
           <td><?php
   if(Is_Array($InfoValue)) {
-    echo "<pre>";
-    print_r($InfoValue);
-    echo "</pre>";
+    echo "<pre>"; print_r($InfoValue); echo "</pre>";
   } else {
-    echo htmlspecialchars($InfoValue);
+    echo processColors($InfoValue);
   }
 ?></td>
         </tr>
 <?php endforeach; ?>
 <?php endif; ?>
       </tbody>
-    </table>
-    <table>
       <thead>
         <tr>
-          <th>Players</th>
+          <th colspan="2">Players</th>
         </tr>
       </thead>
       <tbody>
 <?php if( ( $Players = $Query->GetPlayers( ) ) !== false ): ?>
 <?php foreach($Players as $key => $Player): ?>
         <tr<?php if ($key % 2 == 0) { echo ' class="alt"'; } ?>>
-          <td><?php echo htmlspecialchars( $Player ); ?></td>
+          <td colspan="2"><?php echo processColors($Player); ?></td>
         </tr>
 <?php endforeach; ?>
 <?php else: ?>
