@@ -5,6 +5,7 @@
   $Timer = MicroTime( true );
   $Query = new MinecraftQuery( );
   try { $Query->Connect('<server>', '<port>'); } catch(MinecraftQueryException $e) { $Error = $e->getMessage(); }
+  $Skip = Array("HostIp", "HostPort");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +30,7 @@
       <tbody>
 <?php if( ( $Info = $Query->GetInfo( ) ) !== false ): ?>
 <?php foreach( $Info as $InfoKey => $InfoValue ): ?>
+<?php if (in_array($InfoKey, $Skip)) { continue; } ?>
         <tr>
           <td><?php echo htmlspecialchars( $InfoKey ); ?></td>
           <td><?php
