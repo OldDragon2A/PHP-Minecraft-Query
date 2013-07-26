@@ -9,5 +9,6 @@ function processColors($text) {
   $result = preg_replace_callback('/&amp;([k-o])(.*)$/', "addCode", $result);
   $result = preg_replace_callback('/&amp;([0-9a-f])(.*?)(?=&amp;[0-9a-fr])/', "addCode", $result);
   $result = preg_replace_callback('/(?:&amp;([0-9a-f]))(.*)$/', "addCode", $result);
+  $result = preg_replace('/&amp;r/', '', $result);
   return $result;
 }
