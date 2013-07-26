@@ -93,8 +93,8 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
-html {
-  background-color: #333;
+html, body {
+  background-color: transparent;
 }
 tr {
   background-color: #444;
